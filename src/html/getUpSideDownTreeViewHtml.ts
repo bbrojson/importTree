@@ -1,6 +1,10 @@
 import type { TreeNodeType } from "../graphPanel/types/types";
 import type { Tree, TreeNode } from "../graphPanel/tree/Tree";
 
+function renderPastaNodes(nodesPasta: TreeNodeType[][]) {
+  return "";
+}
+
 export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
   if (tree.getDepth() === 0 || !tree.root) {
     return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
@@ -14,18 +18,18 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     }
   });
 
-  const nodes: TreeNodeType[][] = [];
+  const nodesPasta: TreeNodeType[][] = [];
 
   for (let i = 0; i < bottomNodes.length; i++) {
     const bottomNode = bottomNodes[i];
-    nodes.push([]);
+    nodesPasta.push([]);
     bottomNode.traverseToRoot((child) => {
-      nodes[i].push(child.value);
+      nodesPasta[i].push(child.value);
     });
   }
 
-  const HTML_PATHS = `<div>
-	${nodes
+  let HTML_PATHS = `<div>
+	${nodesPasta
     .map((nodeArr) => {
       return nodeArr
         .map((node) => {
@@ -36,6 +40,8 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     .join("<hr/>")}
 	
 	</div>`;
+
+  HTML_PATHS += renderPastaNodes(nodesPasta);
 
   function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
     if (!node) {
