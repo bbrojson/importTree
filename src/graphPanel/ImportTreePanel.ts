@@ -63,7 +63,7 @@ export class ImportTreePanel {
 			
 					${getTreeViewHtml(tree)}
 					${getGraphHtml(graph)}
-					${getGraphHtmlExample(graph)}
+					${getGraphHtmlExample()}
 				</div>
 			</body>
 			</html>`;
