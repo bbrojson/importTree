@@ -6,6 +6,37 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
   }
 
+  const bottomNodes: TreeNode<TreeNodeType>[] = [];
+
+  tree.traverse((node) => {
+    if (node.children.length === 0) {
+      bottomNodes.push(node);
+    }
+  });
+
+  const nodes: TreeNodeType[][] = [];
+
+  for (let i = 0; i < bottomNodes.length; i++) {
+    const bottomNode = bottomNodes[i];
+    nodes.push([]);
+    bottomNode.traverseToRoot((child) => {
+      nodes[i].push(child.value);
+    });
+  }
+
+  const HTML_PATHS = `<div>
+	${nodes
+    .map((nodeArr) => {
+      return nodeArr
+        .map((node) => {
+          return node.file;
+        })
+        .join("=> ");
+    })
+    .join("<hr/>")}
+	
+	</div>`;
+
   function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
     if (!node) {
       return "";
@@ -137,6 +168,7 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
   }
   </style>
   <ul class="tree">
+	${HTML_PATHS}
     ${renderNode(tree.root, 0)}
   </ul>`;
 }

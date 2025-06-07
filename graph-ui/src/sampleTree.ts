@@ -13,84 +13,79 @@ export function createSampleTree(): Tree<TreeNodeType> {
   tree.root = root;
 
   // Level 1 - 3 nodes
-  const level1_1 = new TreeNode<TreeNodeType>({
+  const level1_1 = root.addChild({
     file: "module1",
     variable: null,
   });
-  const level1_2 = new TreeNode<TreeNodeType>({
+  const level1_2 = root.addChild({
     file: "module2",
     variable: null,
   });
-  const level1_3 = new TreeNode<TreeNodeType>({
+  const level1_3 = root.addChild({
     file: "module3",
     variable: null,
   });
-  root.children = [level1_1, level1_2, level1_3];
 
   // Level 2 - 5 nodes
-  const level2_1 = new TreeNode<TreeNodeType>({
+  const level2_1 = level1_1.addChild({
     file: "sub1",
     variable: null,
   });
-  const level2_3 = new TreeNode<TreeNodeType>({
+  const level2_3 = level1_2.addChild({
     file: "sub3",
     variable: null,
   });
-  const level2_4 = new TreeNode<TreeNodeType>({
+  const level2_4 = level1_2.addChild({
     file: "sub4",
     variable: null,
   });
-  const level2_5 = new TreeNode<TreeNodeType>({
+  const level2_5 = level1_3.addChild({
     file: "sub5",
     variable: null,
   });
-  const level2_6 = new TreeNode<TreeNodeType>({
+  const level2_6 = level1_3.addChild({
     file: "sub6",
     variable: null,
   });
 
-  level1_1.children = [level2_1];
-  level1_2.children = [level2_3, level2_4];
-  level1_3.children = [level2_5, level2_6];
-
   // Level 3 - 10 nodes
-  const level3_1 = new TreeNode<TreeNodeType>({
+  const level3_1 = level2_1.addChild({
     file: "component1",
     variable: null,
   });
-  const level3_2 = new TreeNode<TreeNodeType>({
+  const level3_2 = level2_1.addChild({
     file: "component2",
     variable: null,
   });
-  const level3_4 = new TreeNode<TreeNodeType>({
+  const level3_4 = level2_3.addChild({
     file: "component4",
     variable: null,
   });
-  const level3_5 = new TreeNode<TreeNodeType>({
+  const level3_5 = level2_3.addChild({
     file: "component5",
     variable: null,
   });
-  const level3_6 = new TreeNode<TreeNodeType>({
+  const level3_6 = level2_4.addChild({
     file: "component6",
     variable: null,
   });
-  const level3_7 = new TreeNode<TreeNodeType>({
+  const level3_7 = level2_4.addChild({
     file: "component7",
     variable: null,
   });
-  const level3_8 = new TreeNode<TreeNodeType>({
+  const level3_8 = level2_5.addChild({
     file: "component8",
     variable: null,
   });
-  const level3_9 = new TreeNode<TreeNodeType>({
+  const level3_9 = level2_5.addChild({
     file: "component9",
     variable: null,
   });
-  const level3_10 = new TreeNode<TreeNodeType>({
+  const level3_10 = level2_6.addChild({
     file: "component10",
     variable: null,
   });
-  const level3_11 = new TreeNode<TreeNodeType>({
+  const level3_11 = level2_6.addChild({
     file: "component11",
     variable: null,
   });
@@ -105,26 +100,19 @@ export function createSampleTree(): Tree<TreeNodeType> {
     variable: null,
   });
 
-  // Distribute level 3 nodes among level 2 nodes
-  level2_1.children = [level3_1, level3_2];
-  level2_3.children = [level3_4, level3_5];
-  level2_4.children = [level3_6, level3_7];
-  level2_5.children = [level3_8, level3_9];
-  level2_6.children = [level3_10, level3_11];
-
   // Add baseA as child to components 1-10
-  level3_1.children = [baseA];
-  level3_2.children = [baseA];
-  level3_4.children = [baseA];
-  level3_5.children = [baseA];
-  level3_6.children = [baseA];
-  level3_7.children = [baseA];
-  level3_8.children = [baseA];
-  level3_9.children = [baseA];
-  level3_10.children = [baseA];
+  level3_1.addChild(baseA.value);
+  level3_2.addChild(baseA.value);
+  level3_4.addChild(baseA.value);
+  level3_5.addChild(baseA.value);
+  level3_6.addChild(baseA.value);
+  level3_7.addChild(baseA.value);
+  level3_8.addChild(baseA.value);
+  level3_9.addChild(baseA.value);
+  level3_10.addChild(baseA.value);
 
   // Add baseB as child to component 11
-  level3_11.children = [baseB];
+  level3_11.addChild(baseB.value);
 
   return tree;
 }
