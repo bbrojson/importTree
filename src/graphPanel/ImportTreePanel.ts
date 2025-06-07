@@ -46,6 +46,7 @@ export class ImportTreePanel {
       vscode.Uri.joinPath(context.extensionUri, "media", "graph.css")
     );
 
+    console.log("tree", tree);
     console.log("graph", JSON.stringify(graph));
 
     console.time("generateHtml");
