@@ -21,7 +21,11 @@ export function createSampleTree(): Tree<TreeNodeType> {
     file: "a2",
     variable: null,
   });
-  a2.addChild({
+  const a3 = a2.addChild({
+    file: "a3",
+    variable: null,
+  });
+  a3.addChild({
     file: "pa",
     variable: null,
   });
@@ -42,7 +46,11 @@ export function createSampleTree(): Tree<TreeNodeType> {
     file: "ba",
     variable: null,
   });
-  b2.addChild({
+  const b3 = b2.addChild({
+    file: "b3",
+    variable: null,
+  });
+  b3.addChild({
     file: "ba",
     variable: null,
   });
