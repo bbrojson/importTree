@@ -5,7 +5,9 @@ function App() {
   const html = getUpSideDownTreeViewHtml(createSampleTree());
   return (
     <div>
-      {html}
+      <hr />
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <hr />
       <div className=" bg-white dark:bg-slate-950 md:py-10">
         <div className="container md:border-2 border-slate-200 dark:border-slate-800 rounded-lg px-7 pb-5 pt-12 mx-auto max-w-screen-md">
           <table className="table-fixed border-separate border-spacing-0 ms-2">

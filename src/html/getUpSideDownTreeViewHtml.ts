@@ -22,14 +22,14 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
           hasChildren
             ? `
           <details open>
-            <summary>${node.value.file.getBaseName()} <code>${node.value.file.getFilePath()}</code></summary>
+            <summary>${node.value.file} <code>${node.value.file}</code></summary>
             <ul>
               ${children}
             </ul>
           </details>
         `
             : `
-          <span>${node.value.file.getBaseName()}</span>
+          <span>${node.value.file}</span>
         `
         }
       </li>
