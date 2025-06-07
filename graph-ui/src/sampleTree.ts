@@ -1,7 +1,7 @@
-import { Tree, TreeNode } from "../../src/graphPanel/tree/Tree.js";
-import { TreeNodeType } from "../../src/graphPanel/projectImportsTree/ProjectImportsTree.js";
 import { SourceFile, Directory } from "ts-morph";
 import * as path from "path";
+import { Tree, TreeNode } from "./tree/Tree";
+import type { TreeNodeType } from "../../src/graphPanel/types/types";
 
 // Mock SourceFile class to satisfy the interface
 class MockSourceFile implements Partial<SourceFile> {

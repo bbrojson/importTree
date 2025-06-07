@@ -1,5 +1,5 @@
-import { TreeNodeType } from "../../../graphPanel/projectImportsTree/ProjectImportsTree";
-import { Tree, TreeNode } from "../graphPanel/tree/Tree";
+import type { TreeNodeType } from "../../src/graphPanel/types/types";
+import type { Tree, TreeNode } from "./tree/Tree";
 
 export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
   if (tree.getDepth() === 0 || !tree.root) {
