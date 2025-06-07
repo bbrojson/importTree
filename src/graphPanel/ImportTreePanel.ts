@@ -26,7 +26,9 @@ export class ImportTreePanel {
     webview: vscode.Webview
   ) {
     console.time("_getHtmlForWebview");
+    console.time("ProjectImportsTree");
     const projectTree = new ProjectImportsTree();
+    console.timeEnd("ProjectImportsTree");
 
     const currentFile = vscode.window.activeTextEditor?.document;
     if (!currentFile) {
@@ -38,13 +40,13 @@ export class ImportTreePanel {
     const tree = projectTree.buildTree(currentFile);
     console.timeEnd("buildTree");
 
-    console.time("buildGraph");
     const graph = projectTree.buildGraph(tree);
-    console.timeEnd("buildGraph");
 
     const styles = webview.asWebviewUri(
       vscode.Uri.joinPath(context.extensionUri, "media", "graph.css")
     );
+
+    console.log("graph", JSON.stringify(graph));
 
     console.time("generateHtml");
     const html = `<!DOCTYPE html>
