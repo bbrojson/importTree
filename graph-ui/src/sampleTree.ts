@@ -27,13 +27,9 @@ export function createSampleTree(): Tree<TreeNodeType> {
   });
   root.children = [level1_1, level1_2, level1_3];
 
-  // Level 2 - 6 nodes
+  // Level 2 - 5 nodes
   const level2_1 = new TreeNode<TreeNodeType>({
     file: "submodule1.ts",
-    variable: null,
-  });
-  const level2_2 = new TreeNode<TreeNodeType>({
-    file: "submodule2.ts",
     variable: null,
   });
   const level2_3 = new TreeNode<TreeNodeType>({
@@ -53,21 +49,17 @@ export function createSampleTree(): Tree<TreeNodeType> {
     variable: null,
   });
 
-  level1_1.children = [level2_1, level2_2];
+  level1_1.children = [level2_1];
   level1_2.children = [level2_3, level2_4];
   level1_3.children = [level2_5, level2_6];
 
-  // Level 3 - 11 nodes
+  // Level 3 - 10 nodes
   const level3_1 = new TreeNode<TreeNodeType>({
     file: "component1.ts",
     variable: null,
   });
   const level3_2 = new TreeNode<TreeNodeType>({
     file: "component2.ts",
-    variable: null,
-  });
-  const level3_3 = new TreeNode<TreeNodeType>({
-    file: "component3.ts",
     variable: null,
   });
   const level3_4 = new TreeNode<TreeNodeType>({
@@ -115,7 +107,6 @@ export function createSampleTree(): Tree<TreeNodeType> {
 
   // Distribute level 3 nodes among level 2 nodes
   level2_1.children = [level3_1, level3_2];
-  level2_2.children = [level3_3];
   level2_3.children = [level3_4, level3_5];
   level2_4.children = [level3_6, level3_7];
   level2_5.children = [level3_8, level3_9];
@@ -124,7 +115,6 @@ export function createSampleTree(): Tree<TreeNodeType> {
   // Add baseA as child to components 1-10
   level3_1.children = [baseA];
   level3_2.children = [baseA];
-  level3_3.children = [baseA];
   level3_4.children = [baseA];
   level3_5.children = [baseA];
   level3_6.children = [baseA];
