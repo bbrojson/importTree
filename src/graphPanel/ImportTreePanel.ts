@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { ProjectImportsTree } from "./projectImportsTree/ProjectImportsTree";
 import { getTreeViewHtml } from "../html/getTreeViewHtml";
 import { getGraphHtml } from "../html/graph/getGraphHtml";
+import { getGraphHtmlExample } from "../html/graph/getGraphHtmlExample";
 
 export class ImportTreePanel {
   public static readonly viewType = "importTree";
@@ -62,6 +63,7 @@ export class ImportTreePanel {
 			
 					${getTreeViewHtml(tree)}
 					${getGraphHtml(graph)}
+					${getGraphHtmlExample(graph)}
 				</div>
 			</body>
 			</html>`;
