@@ -1,25 +1,28 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getNestedTreeViewHtml = getNestedTreeViewHtml;
-function getNestedTreeViewHtml(tree) {
-    if (tree.getSize() === 0) {
-        return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
+import { TreeNodeType } from "../../../graphPanel/projectImportsTree/ProjectImportsTree";
+import { Tree, TreeNode } from "../graphPanel/tree/Tree";
+
+export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
+  if (tree.getDepth() === 0 || !tree.root) {
+    return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
+  }
+
+  function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
+    if (!node) {
+      return "";
     }
-    function renderNode(node, depth) {
-        console.log("- node ->", node.value.file.getBaseName());
-        if (!node) {
-            return "";
-        }
-        const hasChildren = node.children.length > 0;
-        const children = node.children
-            .map((child) => renderNode(child, depth + 1))
-            .join("");
-        return `
+
+    const hasChildren = node.children.length > 0;
+    const children = node.children
+      .map((child) => renderNode(child, depth + 1))
+      .join("");
+
+    return `
       <li>
-        ${hasChildren
+        ${
+          hasChildren
             ? `
           <details open>
-            <summary>${node.value.file.getBaseName()} <span>${node.value.file.getFilePath()}</span></summary>
+            <summary>${node.value.file.getBaseName()} <code>${node.value.file.getFilePath()}</code></summary>
             <ul>
               ${children}
             </ul>
@@ -27,15 +30,13 @@ function getNestedTreeViewHtml(tree) {
         `
             : `
           <span>${node.value.file.getBaseName()}</span>
-        `}
+        `
+        }
       </li>
     `;
-    }
-    const rootsHtml = tree
-        .getRoots()
-        .map((root) => renderNode(root, 0))
-        .join("");
-    return `<style>
+  }
+
+  return `<style>
   .tree {
     --spacing: 1.4rem;
     --radius: 7px;
@@ -78,6 +79,14 @@ function getNestedTreeViewHtml(tree) {
     display: block;
     cursor: pointer;
     margin-bottom: 7px;
+  }
+
+  .tree details > summary code {
+    display: inline-block;
+  }
+
+  .tree details[open] summary code {
+    display: none;
   }
 
   .tree summary::marker,
@@ -126,20 +135,8 @@ function getNestedTreeViewHtml(tree) {
     font-size: 0.85em;
     margin-left: 8px;
   }
-
-  .root-node {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .root-node > summary::before {
-    background: #4a90e2;
-  }
   </style>
   <ul class="tree">
-    ${rootsHtml}
+    ${renderNode(tree.root, 0)}
   </ul>`;
 }
-//# sourceMappingURL=getNestedTreeViewHtml.js.map

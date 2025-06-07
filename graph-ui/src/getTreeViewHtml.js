@@ -1,18 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTreeViewHtml = getTreeViewHtml;
-function getTreeViewHtml(tree) {
+export function getTreeViewHtml(tree) {
     if (tree.getDepth() === 0 || !tree.root) {
         return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
     }
     function renderNode(node, depth) {
         if (!node) {
-            return "";
+            return '';
         }
         const hasChildren = node.children.length > 0;
-        const children = node.children
-            .map((child) => renderNode(child, depth + 1))
-            .join("");
+        const children = node.children.map((child) => renderNode(child, depth + 1)).join('');
         return `
       <li>
         ${hasChildren
