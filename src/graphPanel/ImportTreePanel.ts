@@ -24,6 +24,7 @@ export class ImportTreePanel {
     context: vscode.ExtensionContext,
     webview: vscode.Webview
   ) {
+    console.time("_getHtmlForWebview");
     const projectTree = new ProjectImportsTree();
 
     const currentFile = vscode.window.activeTextEditor?.document;
@@ -32,14 +33,20 @@ export class ImportTreePanel {
       return "couldn't read the file" + currentFile;
     }
 
+    console.time("buildTree");
+    const tree = projectTree.buildTree(currentFile);
+    console.timeEnd("buildTree");
+
+    console.time("buildGraph");
+    const graph = projectTree.buildGraph(tree);
+    console.timeEnd("buildGraph");
+
     const styles = webview.asWebviewUri(
       vscode.Uri.joinPath(context.extensionUri, "media", "graph.css")
     );
 
-    const tree = projectTree.buildTree(currentFile);
-    const graph = projectTree.buildGraph(tree);
-
-    return `<!DOCTYPE html>
+    console.time("generateHtml");
+    const html = `<!DOCTYPE html>
 			<html lang="en">
 			<head>
 				<meta charset="UTF-8">
@@ -58,5 +65,9 @@ export class ImportTreePanel {
 				</div>
 			</body>
 			</html>`;
+    console.timeEnd("generateHtml");
+
+    console.timeEnd("_getHtmlForWebview");
+    return html;
   }
 }
