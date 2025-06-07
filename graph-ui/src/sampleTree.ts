@@ -1,6 +1,6 @@
 import { SourceFile, Directory } from "ts-morph";
 import * as path from "path";
-import { Tree, TreeNode } from "./tree/Tree";
+import { Tree, TreeNode } from "../../src/graphPanel//tree/Tree";
 import type { TreeNodeType } from "../../src/graphPanel/types/types";
 
 // Mock SourceFile class to satisfy the interface

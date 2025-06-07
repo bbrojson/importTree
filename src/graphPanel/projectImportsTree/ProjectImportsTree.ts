@@ -1,11 +1,10 @@
 import * as vscode from "vscode";
 import { Project } from "ts-morph";
-
 import { getTsconfigPath } from "../getTsconfigPath";
 import { mergeLinkedListToMultiGraph } from "./mergeLinkedListToMultiGraph";
 import { TreeNodeType } from "../types/types";
-import { Tree, TreeNode } from "../../../graph-ui/src/tree/Tree";
-import { retrieveSourceFileReferences } from "../../../graph-ui/src/tree/utils/retrieveSourceFileReferences";
+import { Tree, TreeNode } from "../tree/Tree";
+import { retrieveSourceFileReferences } from "./retrieveSourceFileReferences";
 
 export class ProjectImportsTree {
   private project: Project;

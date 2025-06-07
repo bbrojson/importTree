@@ -1,4 +1,4 @@
-import { getUpSideDownTreeViewHtml } from "./getUpSideDownTreeViewHtml";
+import { getUpSideDownTreeViewHtml } from "../../src/html/getUpSideDownTreeViewHtml";
 import { createSampleTree } from "./sampleTree";
 
 function App() {

@@ -1,24 +1,26 @@
-import { TreeNodeType } from '../graphPanel/projectImportsTree/ProjectImportsTree';
-import { Tree, TreeNode } from '../graphPanel/tree/Tree';
+import { Tree, TreeNode } from "../graphPanel/tree/Tree";
+import { TreeNodeType } from "../graphPanel/types/types";
 
 export function getTreeViewHtml(tree: Tree<TreeNodeType>): string {
-	if (tree.getDepth() === 0 || !tree.root) {
-		return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
-	}
+  if (tree.getDepth() === 0 || !tree.root) {
+    return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
+  }
 
-	function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
-		if (!node) {
-			return '';
-		}
+  function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
+    if (!node) {
+      return "";
+    }
 
-		const hasChildren = node.children.length > 0;
-		const children = node.children.map((child) => renderNode(child, depth + 1)).join('');
+    const hasChildren = node.children.length > 0;
+    const children = node.children
+      .map((child) => renderNode(child, depth + 1))
+      .join("");
 
-		return `
+    return `
       <li>
         ${
-					hasChildren
-						? `
+          hasChildren
+            ? `
           <details open>
             <summary>${node.value.file.getBaseName()} <code>${node.value.file.getFilePath()}</code></summary>
             <ul>
@@ -26,15 +28,15 @@ export function getTreeViewHtml(tree: Tree<TreeNodeType>): string {
             </ul>
           </details>
         `
-						: `
+            : `
           <span>${node.value.file.getBaseName()}</span>
         `
-				}
+        }
       </li>
     `;
-	}
+  }
 
-	return `<style>
+  return `<style>
   .tree {
     --spacing: 1.4rem;
     --radius: 7px;
