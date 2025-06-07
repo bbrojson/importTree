@@ -1,5 +1,7 @@
-export function getGraphHtml(): string {
-	return `
+import { MultiGraph } from "../../graphPanel/multiGraph/MultiGraph";
+
+export function getGraphHtml(graph: MultiGraph): string {
+  return `
 <div class="min-h-screen bg-white dark:bg-slate-950 md:py-10">
   <div class="container md:border-2 border-slate-200 dark:border-slate-800 rounded-lg px-7 pb-5 pt-12 mx-auto max-w-screen-md">
     <table class="table-fixed border-separate border-spacing-0 ms-2">
