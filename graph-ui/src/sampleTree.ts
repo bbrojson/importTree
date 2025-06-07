@@ -13,92 +13,73 @@ export function createSampleTree(): Tree<TreeNodeType> {
   tree.root = root;
 
   // Level 1 - 3 nodes
-  const level1_1 = root.addChild({
-    file: "module1",
+  const a1 = root.addChild({
+    file: "a1",
     variable: null,
   });
-  const level1_2 = root.addChild({
-    file: "module2",
+  const a2 = a1.addChild({
+    file: "a2",
     variable: null,
   });
-  const level1_3 = root.addChild({
-    file: "module3",
-    variable: null,
-  });
-
-  // Level 2 - 4 nodes
-  const level2_1 = level1_1.addChild({
-    file: "sub1",
-    variable: null,
-  });
-  const level2_3 = level1_2.addChild({
-    file: "sub3",
-    variable: null,
-  });
-  const level2_5 = level1_3.addChild({
-    file: "sub5",
-    variable: null,
-  });
-  const level2_6 = level1_3.addChild({
-    file: "sub6",
+  a2.addChild({
+    file: "pa",
     variable: null,
   });
 
-  // Level 3 - 8 nodes
-  const level3_1 = level2_1.addChild({
-    file: "component1",
+  const b1 = root.addChild({
+    file: "b1",
     variable: null,
   });
-  const level3_2 = level2_1.addChild({
-    file: "component2",
+  const b2 = b1.addChild({
+    file: "b2",
     variable: null,
   });
-  const level3_4 = level2_3.addChild({
-    file: "component4",
+  const b21 = b1.addChild({
+    file: "b21",
     variable: null,
   });
-  const level3_5 = level2_3.addChild({
-    file: "component5",
+  b21.addChild({
+    file: "ba",
     variable: null,
   });
-  const level3_8 = level2_5.addChild({
-    file: "component8",
-    variable: null,
-  });
-  const level3_9 = level2_5.addChild({
-    file: "component9",
-    variable: null,
-  });
-  const level3_10 = level2_6.addChild({
-    file: "component10",
-    variable: null,
-  });
-  const level3_11 = level2_6.addChild({
-    file: "component11",
+  b2.addChild({
+    file: "ba",
     variable: null,
   });
 
-  // Base nodes
-  const baseA = new TreeNode<TreeNodeType>({
-    file: "baseA",
+  const v1 = root.addChild({
+    file: "v1",
     variable: null,
   });
-  const baseB = new TreeNode<TreeNodeType>({
-    file: "baseB",
+  const v2 = v1.addChild({
+    file: "v2",
+    variable: null,
+  });
+  const v21 = v2.addChild({
+    file: "v21",
+    variable: null,
+  });
+  const v22 = v2.addChild({
+    file: "v22",
+    variable: null,
+  });
+  v22.addChild({
+    file: "vp",
+    variable: null,
+  });
+  v21.addChild({
+    file: "vp",
     variable: null,
   });
 
-  // Add baseA as child to components 1-10
-  level3_1.addChild(baseA.value);
-  level3_2.addChild(baseA.value);
-  level3_4.addChild(baseA.value);
-  level3_5.addChild(baseA.value);
-  level3_8.addChild(baseA.value);
-  level3_9.addChild(baseA.value);
-  level3_10.addChild(baseA.value);
-
-  // Add baseB as child to component 11
-  level3_11.addChild(baseB.value);
+  const vb1 = v2.addChild({
+    file: "b21",
+    variable: null,
+  });
+  vb1.addChild({
+    file: "ba",
+    variable: null,
+  });
 
   return tree;
 }
