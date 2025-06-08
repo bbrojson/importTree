@@ -1,8 +1,41 @@
 import type { TreeNodeType } from "../graphPanel/types/types";
 import type { Tree, TreeNode } from "../graphPanel/tree/Tree";
 
-function renderPastaNodes(nodesPasta: TreeNodeType[][]) {
-  return "";
+function renderPastaNodes(treesBranches: TreeNodeType[][]) {
+  function renderNode(treeBranch: TreeNodeType[], depth: number): string {
+    const current = treeBranch[depth];
+    if (current === undefined) {
+      return "";
+    }
+
+    const hasChildren = treeBranch.length > depth;
+    const childrenHtml = renderNode(treeBranch, depth + 1);
+
+    return `
+      <li>
+        ${
+          hasChildren
+            ? `
+          <details open>
+            <summary>${current.file} <code>${current.file}</code></summary>
+            <ul>
+              ${childrenHtml}
+            </ul>
+          </details>
+        `
+            : `
+          <span>${current.file}</span>
+        `
+        }
+      </li>
+    `;
+  }
+
+  console.log("treesBranches", treesBranches[0]);
+  return `<hr/><h1>treesBranches:</h1><ul class="tree">${renderNode(
+    treesBranches[0],
+    0
+  )}</ul><hr/>`;
 }
 
 export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
@@ -18,18 +51,18 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     }
   });
 
-  const nodesPasta: TreeNodeType[][] = [];
+  const treesBranches: TreeNodeType[][] = [];
 
   for (let i = 0; i < bottomNodes.length; i++) {
     const bottomNode = bottomNodes[i];
-    nodesPasta.push([]);
+    treesBranches.push([]);
     bottomNode.traverseToRoot((child) => {
-      nodesPasta[i].push(child.value);
+      treesBranches[i].push(child.value);
     });
   }
 
   let HTML_PATHS = `<div>
-	${nodesPasta
+	${treesBranches
     .map((nodeArr) => {
       return nodeArr
         .map((node) => {
@@ -41,7 +74,7 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
 	
 	</div>`;
 
-  HTML_PATHS += renderPastaNodes(nodesPasta);
+  HTML_PATHS += renderPastaNodes(treesBranches);
 
   function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
     if (!node) {
@@ -173,8 +206,8 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     margin-left: 8px;
   }
   </style>
-  <ul class="tree">
+ 
 	${HTML_PATHS}
-    ${renderNode(tree.root, 0)}
-  </ul>`;
+     <ul class="tree">${renderNode(tree.root, 0)}</ul>
+  `;
 }
