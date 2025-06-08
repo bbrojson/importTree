@@ -1,48 +1,8 @@
 import type { TreeNodeType } from "../graphPanel/types/types";
 import type { Tree, TreeNode } from "../graphPanel/tree/Tree";
+import { renderPastaNodes } from "./utils/upSideDownParser";
 
-function renderPastaNodes(treesBranches: TreeNodeType[][]) {
-  function renderNode(treeBranch: TreeNodeType[], depth: number): string {
-    const current = treeBranch[depth];
-    if (current === undefined) {
-      return "";
-    }
-
-    const hasChildren = treeBranch.length > depth;
-    const childrenHtml = renderNode(treeBranch, depth + 1);
-
-    return `
-      <li>
-        ${
-          hasChildren
-            ? `
-          <details open>
-            <summary>${current.id} <code>${current.id}</code></summary>
-            <ul>
-              ${childrenHtml}
-            </ul>
-          </details>
-        `
-            : `
-          <span>${current.id}</span>
-        `
-        }
-      </li>
-    `;
-  }
-
-  console.log("treesBranches", treesBranches[0]);
-  return `<hr/><h1>treesBranches:</h1><ul class="tree">${renderNode(
-    treesBranches[0],
-    0
-  )}</ul><hr/>`;
-}
-
-export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
-  if (tree.getDepth() === 0 || !tree.root) {
-    return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
-  }
-
+function getBranchesHtml(tree: Tree<TreeNodeType>) {
   const bottomNodes: TreeNode<TreeNodeType>[] = [];
 
   tree.traverse((node) => {
@@ -61,7 +21,7 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     });
   }
 
-  let HTML_PATHS = `<div>
+  return `<div>
 	${treesBranches
     .map((nodeArr) => {
       return nodeArr
@@ -73,8 +33,12 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     .join("<hr/>")}
 	
 	</div>`;
+}
 
-  HTML_PATHS += renderPastaNodes(treesBranches);
+export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
+  if (tree.getDepth() === 0 || !tree.root) {
+    return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
+  }
 
   function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
     if (!node) {
@@ -207,7 +171,8 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
   }
   </style>
  
-	${HTML_PATHS}
+		${getBranchesHtml(tree)}
+		${renderPastaNodes(tree)}
      <ul class="tree">${renderNode(tree.root, 0)}</ul>
   `;
 }

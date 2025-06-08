@@ -1,8 +1,7 @@
 import { MultiGraph } from "../multiGraph/MultiGraph";
-import { TreeNodeType } from "../types/types";
 
-export function mergeLinkedListToMultiGraph(
-  linkedLists: TreeNodeType[][]
+export function mergeLinkedListToMultiGraph<T extends { id: string }>(
+  linkedLists: T[][]
 ): MultiGraph {
   const graph = new MultiGraph();
 
@@ -10,20 +9,20 @@ export function mergeLinkedListToMultiGraph(
   for (const list of linkedLists) {
     // Add all nodes to the graph first
     for (const node of list) {
-      const nodeId = node.file.getFilePath();
+      const nodeId = node.id;
       graph.addNode(nodeId);
     }
 
     // Add edges between consecutive nodes in the list
     for (let i = 0; i < list.length - 1; i++) {
-      const fromNode = list[i].file.getFilePath();
-      const toNode = list[i + 1].file.getFilePath();
+      const fromNode = list[i].id;
+      const toNode = list[i + 1].id;
 
       // Create a label that includes information about the variable/function if present
       let label: string | undefined;
-      const variable = list[i + 1].variable;
-      if (variable) {
-        label = variable.getName();
+      const id = list[i + 1].id;
+      if (id) {
+        label = id;
       }
 
       graph.addEdge(fromNode, toNode, label);

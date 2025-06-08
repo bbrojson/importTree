@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import { Project } from "ts-morph";
 import { getTsconfigPath } from "../getTsconfigPath";
-import { mergeLinkedListToMultiGraph } from "./mergeLinkedListToMultiGraph";
 import { TreeNodeType } from "../types/types";
 import { Tree, TreeNode } from "../tree/Tree";
 import { retrieveSourceFileReferences } from "./retrieveSourceFileReferences";
@@ -54,27 +53,5 @@ export class ProjectImportsTree {
     findReferences(root);
 
     return tree;
-  }
-
-  public buildGraph(tree: Tree<TreeNodeType>) {
-    const bottomNodes: TreeNode<TreeNodeType>[] = [];
-
-    tree.traverse((node) => {
-      if (node.children.length === 0) {
-        bottomNodes.push(node);
-      }
-    });
-
-    const nodes: TreeNodeType[][] = [];
-
-    for (let i = 0; i < bottomNodes.length; i++) {
-      const bottomNode = bottomNodes[i];
-      nodes.push([]);
-      bottomNode.traverseToRoot((child) => {
-        nodes[i].push(child.value);
-      });
-    }
-
-    return mergeLinkedListToMultiGraph(nodes);
   }
 }

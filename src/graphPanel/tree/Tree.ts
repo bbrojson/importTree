@@ -1,4 +1,6 @@
-export class TreeNode<T> {
+import { mergeLinkedListToMultiGraph } from "../projectImportsTree/mergeLinkedListToMultiGraph";
+
+export class TreeNode<T extends { id: string }> {
   value: T;
   children: TreeNode<T>[];
   parent: TreeNode<T> | null;
@@ -89,9 +91,11 @@ export class TreeNode<T> {
       this.parent.traverseToRoot(callback);
     }
   }
+
+  toString() {}
 }
 
-export class Tree<T> {
+export class Tree<T extends { id: string }> {
   root: TreeNode<T> | null;
 
   constructor() {
@@ -128,5 +132,55 @@ export class Tree<T> {
 
   getDepth(): number {
     return this.root ? this.root.getDepth() : -1;
+  }
+}
+
+export class GraphTree<T extends { id: string }> {
+  roots: TreeNode<T>[];
+
+  constructor() {
+    this.roots = [];
+  }
+
+  addRoot(value: T): TreeNode<T> {
+    const root = new TreeNode<T>(value);
+    this.roots.push(root);
+    return root;
+  }
+
+  findNode(predicate: (value: T) => boolean): TreeNode<T> | null {
+    throw new Error("Not implemented yet!" + predicate);
+  }
+
+  traverse(callback: (node: TreeNode<T>) => void): void {
+    throw new Error("Not implemented yet!" + callback);
+  }
+
+  public buildFromReversingTree(tree: Tree<T>) {
+    this.roots = [];
+    const bottomNodes: TreeNode<T>[] = [];
+
+    tree.traverse((node) => {
+      if (node.children.length === 0) {
+        bottomNodes.push(node);
+      }
+    });
+
+    for (let i = 0; i < bottomNodes.length; i++) {
+      const bottomNode = bottomNodes[i];
+      let counter = 0;
+      let lastChild: TreeNode<T>;
+      bottomNode.traverseToRoot((child) => {
+        console.log("first", child);
+        if (counter === 0) {
+          lastChild = this.addRoot(child.value);
+        } else {
+          lastChild.addChild(child.value);
+        }
+        counter++;
+      });
+    }
+
+    // return mergeLinkedListToMultiGraph(nodes);
   }
 }

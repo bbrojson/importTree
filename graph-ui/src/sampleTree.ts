@@ -36,12 +36,12 @@ export function createSampleTree(): Tree<TreeNodeType> {
     variable: null,
     file: new MockSourceFile("a2") as unknown as SourceFile,
   });
-  const a3 = a2.addChild({
-    id: "a3",
-    variable: null,
-    file: new MockSourceFile("a3") as unknown as SourceFile,
-  });
-  a3.addChild({
+  // const a3 = a2.addChild({
+  //   id: "a3",
+  //   variable: null,
+  //   file: new MockSourceFile("a3") as unknown as SourceFile,
+  // });
+  a2.addChild({
     id: "pa",
     variable: null,
     file: new MockSourceFile("pa") as unknown as SourceFile,
@@ -57,12 +57,12 @@ export function createSampleTree(): Tree<TreeNodeType> {
     variable: null,
     file: new MockSourceFile("b2") as unknown as SourceFile,
   });
-  const b21 = b1.addChild({
-    id: "b21",
-    variable: null,
-    file: new MockSourceFile("b21") as unknown as SourceFile,
-  });
-  b21.addChild({
+  // const b21 = b1.addChild({
+  //   id: "b21",
+  //   variable: null,
+  //   file: new MockSourceFile("b21") as unknown as SourceFile,
+  // });
+  b1.addChild({
     id: "ba",
     variable: null,
     file: new MockSourceFile("ba") as unknown as SourceFile,
