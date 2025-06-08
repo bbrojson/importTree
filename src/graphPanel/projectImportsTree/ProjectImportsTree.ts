@@ -27,6 +27,7 @@ export class ProjectImportsTree {
     const tree = new Tree<TreeNodeType>();
 
     const root = tree.setRoot({
+      id: sourceFile.getBaseName(),
       file: sourceFile,
       variable: null,
     });
@@ -41,6 +42,7 @@ export class ProjectImportsTree {
         }
 
         const child = node.addChild({
+          id: file.getBaseName(),
           variable: newNode.variable,
           file,
         });
