@@ -20,6 +20,13 @@ export class TreeNode<T extends { id: string }> {
     return child;
   }
 
+  addChildNode(childNode: TreeNode<T>): TreeNode<T> {
+    childNode.parent = this;
+    childNode.depth = this.depth + 1;
+    this.children.push(childNode);
+    return childNode;
+  }
+
   removeChild(child: TreeNode<T>): boolean {
     const index = this.children.indexOf(child);
     if (index !== -1) {
@@ -171,12 +178,12 @@ export class GraphTree<T extends { id: string }> {
       let counter = 0;
       let lastChild: TreeNode<T>;
       bottomNode.traverseToRoot((child) => {
-        console.log("first", child);
         if (counter === 0) {
           lastChild = this.addRoot(child.value);
         } else {
-          lastChild.addChild(child.value);
+          lastChild = lastChild.addChild(child.value);
         }
+        console.log("first", lastChild.value.id, counter);
         counter++;
       });
     }

@@ -15,7 +15,7 @@ export function renderPastaNodes(tree: Tree<TreeNodeType>) {
         return "";
       }
 
-      console.log("node", node.value.id, node.children.length);
+      console.log("node", node, node.value.id, node.children.length);
 
       const hasChildren = node.children.length > 0;
       const children = node.children
@@ -48,7 +48,7 @@ export function renderPastaNodes(tree: Tree<TreeNodeType>) {
       file: undefined as never,
     });
     graph.roots.forEach((r) => {
-      startPoint.addChild(r.value);
+      startPoint.addChildNode(r);
     });
 
     return renderNode(startPoint, 0);
