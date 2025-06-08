@@ -1,6 +1,7 @@
-import { FunctionDeclaration, VariableDeclaration } from "ts-morph";
+import { FunctionDeclaration, SourceFile, VariableDeclaration } from "ts-morph";
 
 export type TreeNodeType = {
-  file: string;
+  id: string;
+  file: SourceFile;
   variable: VariableDeclaration | FunctionDeclaration | null;
 };

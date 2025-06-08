@@ -17,14 +17,14 @@ function renderPastaNodes(treesBranches: TreeNodeType[][]) {
           hasChildren
             ? `
           <details open>
-            <summary>${current.file} <code>${current.file}</code></summary>
+            <summary>${current.id} <code>${current.id}</code></summary>
             <ul>
               ${childrenHtml}
             </ul>
           </details>
         `
             : `
-          <span>${current.file}</span>
+          <span>${current.id}</span>
         `
         }
       </li>
@@ -66,7 +66,7 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     .map((nodeArr) => {
       return nodeArr
         .map((node) => {
-          return node.file;
+          return node.id;
         })
         .join("=> ");
     })
@@ -92,14 +92,14 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
           hasChildren
             ? `
           <details open>
-            <summary>${node.value.file} <code>${node.value.file}</code></summary>
+            <summary>${node.value.id} <code>${node.value.id}</code></summary>
             <ul>
               ${children}
             </ul>
           </details>
         `
             : `
-          <span>${node.value.file}</span>
+          <span>${node.value.id}</span>
         `
         }
       </li>
