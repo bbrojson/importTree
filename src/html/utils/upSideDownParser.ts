@@ -24,6 +24,8 @@ function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
 
     if (!treeChild) {
       treeChild = treeNode.addChild(node.value);
+    } else {
+      console.log("found", node.value.id);
     }
 
     //if one of the node has the same id, it should have common parent
