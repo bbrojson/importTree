@@ -20,11 +20,17 @@ function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
     treeNode: TreeNode<TreeNodeType>,
     node: TreeNode<TreeNodeType>
   ) {
+    let treeChild = treeNode.findNode((n) => n.id === node.value.id);
+
+    if (!treeChild) {
+      treeChild = treeNode.addChild(node.value);
+    }
+
     //if one of the node has the same id, it should have common parent
     for (let index = 0; index < node.children.length; index++) {
       const element = node.children[index];
 
-      const treeChild = treeNode.addChild(element.value);
+      // const treeChild = treeNode.addChild(element.value);
       checkNode(treeChild, element);
     }
   }
