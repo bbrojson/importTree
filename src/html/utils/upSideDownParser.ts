@@ -1,21 +1,57 @@
 import { GraphTree, Tree, TreeNode } from "../../graphPanel/tree/Tree";
 import { TreeNodeType } from "../../graphPanel/types/types";
 
+function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
+  const startPoint = new TreeNode<TreeNodeType>({
+    id: "dummyRoot",
+    variable: null,
+    file: undefined as never,
+  });
+  graph.roots.forEach((r) => {
+    startPoint.addChildNode(r);
+  });
+
+  const newGraph = new GraphTree<TreeNodeType>();
+  newGraph.roots = [startPoint];
+
+  const newTree = new Tree<TreeNodeType>();
+
+  function checkNode(
+    treeNode: TreeNode<TreeNodeType>,
+    node: TreeNode<TreeNodeType>
+  ) {
+    //if one of the node has the same id, it should have common parent
+    for (let index = 0; index < node.children.length; index++) {
+      const element = node.children[index];
+
+      const treeChild = treeNode.addChild(element.value);
+      checkNode(treeChild, element);
+    }
+  }
+
+  newTree.setRoot(newGraph.roots[0].value);
+  if (!newTree.root) throw new Error("TS guard");
+  checkNode(newTree.root, newGraph.roots[0]);
+
+  console.log("newTree", newTree, newGraph);
+
+  return newTree;
+}
+
 export function renderPastaNodes(tree: Tree<TreeNodeType>) {
-  const graph = new GraphTree<TreeNodeType>();
+  let graph = new GraphTree<TreeNodeType>();
   graph.buildFromReversingTree(tree);
 
-  function renderGraph(graph: GraphTree<TreeNodeType>): string {
-    if (graph.roots.length < 1) {
-      return "";
-    }
+  const tree2 = mergeSimilarIdsInGraph(graph);
 
-    function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
+  function renderTree(graph: Tree<TreeNodeType>): string {
+    function renderNode(
+      node: TreeNode<TreeNodeType> | null,
+      depth: number
+    ): string {
       if (!node) {
         return "";
       }
-
-      console.log("node", node, node.value.id, node.children.length);
 
       const hasChildren = node.children.length > 0;
       const children = node.children
@@ -42,20 +78,10 @@ export function renderPastaNodes(tree: Tree<TreeNodeType>) {
 				`;
     }
 
-    const startPoint = new TreeNode<TreeNodeType>({
-      id: "root",
-      variable: null,
-      file: undefined as never,
-    });
-    graph.roots.forEach((r) => {
-      startPoint.addChildNode(r);
-    });
-
-    return renderNode(startPoint, 0);
+    return renderNode(graph.root, 0);
   }
 
-  console.log("graph", graph);
-  return `<hr/><h1>treesBranches:</h1><ul class="tree">${renderGraph(
-    graph
+  return `<hr/><h1>treesBranches:</h1><ul class="tree">${renderTree(
+    tree2
   )}</ul><hr/>`;
 }

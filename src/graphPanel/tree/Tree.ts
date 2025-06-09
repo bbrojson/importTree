@@ -183,11 +183,8 @@ export class GraphTree<T extends { id: string }> {
         } else {
           lastChild = lastChild.addChild(child.value);
         }
-        console.log("first", lastChild.value.id, counter);
         counter++;
       });
     }
-
-    // return mergeLinkedListToMultiGraph(nodes);
   }
 }
