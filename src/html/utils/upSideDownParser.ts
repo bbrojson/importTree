@@ -44,11 +44,42 @@ function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
   return newTree;
 }
 
+function checkForDuplicateNodes(tree: Tree<TreeNodeType>): void {
+  const seenIds = new Set<string>();
+
+  function checkNode(node: TreeNode<TreeNodeType> | null): void {
+    if (!node) return;
+
+    // Check if we've seen this ID before
+    if (seenIds.has(node.value.id) && node.value.id !== "root") {
+      throw new Error(`Duplicate node ID found: ${node.value.id}`);
+    }
+
+    // Add current node's ID to seen set
+    seenIds.add(node.value.id);
+
+    // Recursively check all children
+    for (const child of node.children) {
+      checkNode(child);
+    }
+  }
+
+  checkNode(tree.root);
+}
+
 export function renderPastaNodes(tree: Tree<TreeNodeType>) {
   let graph = new GraphTree<TreeNodeType>();
   graph.buildFromReversingTree(tree);
 
   const tree2 = mergeSimilarIdsInGraph(graph);
+
+  try {
+    checkForDuplicateNodes(tree2);
+    // No duplicates found
+  } catch (error) {
+    // Handle the error - it will contain the duplicate ID in the message
+    console.error(error);
+  }
 
   function renderTree(graph: Tree<TreeNodeType>): string {
     function renderNode(
