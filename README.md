@@ -1,24 +1,45 @@
-# Calico Colors — Webview View API Sample
+# Import Tree — Visualize where file was imported
 
-Demonstrates VS Code's [webview view API](https://github.com/microsoft/vscode/issues/46585). This includes:
+A VS Code extension that provides a visual tree representation of file import dependencies. This extension helps developers understand and navigate through the import relationships between files in their project.
 
-- Contributing a webview based view to the explorer.
-- Posting messages from an extension to a webview view
-- Posting message from a webview to an extension  
-- Persisting state in the view.
-- Contributing commands to the view title.
+## Features
+
+- Visualize import dependencies in a tree structure
+
+## How to Use
+
+1. Open the Import Tree view in the VS Code sidebar
+2. Select a file in your project that you want to investigate
+3. Type the importTree.show command
+
+## Requirements
+
+- VS Code 1.49 or higher
+
+## Installation
+
+1. Open VS Code
+2. Go to the Extensions view (`Ctrl+Shift+X`)
+3. Search for "Import Tree"
+4. Click Install
+
+## Development
+
+To contribute to this extension:
+
+1. Clone the repository
+2. Run `npm install`
+3. Run `npm run watch` or `npm run compile`
+4. Press `F5` to start debugging
 
 ## VS Code API
 
-### `vscode` module
+This extension uses the following VS Code APIs:
 
-- [`window.registerWebviewViewProvider`](https://code.visualstudio.com/api/references/vscode-api#window.registerWebviewViewProvider)
+- `window.registerWebviewViewProvider` for the tree visualization
+- File system APIs for analyzing imports
+- Tree view APIs for displaying the dependency structure
 
-## Running the example
+## License
 
-- Open this example in VS Code 1.49+
-- `npm install`
-- `npm run watch` or `npm run compile`
-- `F5` to start debugging
-
-In the explorer, expand the `Calico Colors` view.
+MIT
