@@ -1,40 +1,10 @@
 import type { TreeNodeType } from "../graphPanel/types/types";
-import type { Tree, TreeNode } from "../graphPanel/tree/Tree";
+import type { Tree } from "../graphPanel/tree/Tree";
 import { renderPastaNodes } from "./utils/upSideDownParser";
 
 export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
   if (tree.getDepth() === 0 || !tree.root) {
     return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
-  }
-
-  function renderNode(node: TreeNode<TreeNodeType>, depth: number): string {
-    if (!node) {
-      return "";
-    }
-
-    const hasChildren = node.children.length > 0;
-    const children = node.children
-      .map((child) => renderNode(child, depth + 1))
-      .join("");
-
-    return `
-      <li>
-        ${
-          hasChildren
-            ? `
-          <details open>
-            <summary>${node.value.id} <code>${node.value.id}</code></summary>
-            <ul>
-              ${children}
-            </ul>
-          </details>
-        `
-            : `
-          <span>${node.value.id}</span>
-        `
-        }
-      </li>
-    `;
   }
 
   return `<style>
