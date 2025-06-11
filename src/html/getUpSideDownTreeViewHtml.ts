@@ -88,7 +88,7 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
 
   .tree summary::before {
     z-index: 1;
-    background: #696;
+    background: rgb(0, 120, 212);
   }
 
   details {
