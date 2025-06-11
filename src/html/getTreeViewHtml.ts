@@ -37,10 +37,12 @@ export function getTreeViewHtml(tree: Tree<TreeNodeType>): string {
   }
 
   return `<style>
+
   .tree {
     --spacing: 1.4rem;
     --radius: 7px;
     font-family: Monaco, monospace;
+		padding:24px 0;
   }
 
   .tree li {
