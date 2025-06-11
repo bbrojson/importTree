@@ -82,7 +82,7 @@ export function getTreeViewHtml(tree: Tree<TreeNodeType>): string {
   }
 
   .tree details > summary code {
-    display: inline-block;
+     display: none;
   }
 
   .tree details[open] summary code {
@@ -118,6 +118,10 @@ export function getTreeViewHtml(tree: Tree<TreeNodeType>): string {
   .tree summary::before {
     z-index: 1;
     background: rgb(0, 120, 212);
+  }
+
+  .tree details:not([open]) > summary::before {
+    background: #ffc238;
   }
 
   details {
