@@ -1,47 +1,49 @@
 {
-  "name": "importtree",
-  "displayName": "importTree",
-  "description": "Show import dependency tree of current file.",
+  "name": "importTree",
+  "description": "importTree - show tree of imports of a file",
   "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.100.0"
+  "publisher": "bbrojson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bbrojson/importTree.git"
   },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
   "categories": [
     "Other"
   ],
   "activationEvents": [],
-  "main": "./dist/extension.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "importtree.helloWorld",
-        "title": "Hello World"
+        "command": "importTree.show",
+        "title": "Import tree - show",
+        "category": "importTree"
       }
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run package",
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint",
+    "watch": "tsc -w -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.100.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "@typescript-eslint/eslint-plugin": "^8.31.1",
-    "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "typescript": "^5.8.3",
-    "ts-loader": "^9.5.2",
-    "webpack": "^5.99.7",
-    "webpack-cli": "^6.0.1",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.5.2"
+    "@eslint/js": "^9.13.0",
+    "@stylistic/eslint-plugin": "^2.9.0",
+    "@types/vscode": "^1.73.0",
+    "eslint": "^9.13.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0"
+  },
+  "dependencies": {
+    "@types/node": "^22.15.30",
+    "ts-morph": "^26.0.0"
   }
 }
