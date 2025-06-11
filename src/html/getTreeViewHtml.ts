@@ -37,7 +37,6 @@ export function getTreeViewHtml(tree: Tree<TreeNodeType>): string {
   }
 
   return `<style>
-
   .tree {
     --spacing: 1.4rem;
     --radius: 7px;
