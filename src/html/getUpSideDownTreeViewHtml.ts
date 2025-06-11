@@ -2,39 +2,6 @@ import type { TreeNodeType } from "../graphPanel/types/types";
 import type { Tree, TreeNode } from "../graphPanel/tree/Tree";
 import { renderPastaNodes } from "./utils/upSideDownParser";
 
-function getBranchesHtml(tree: Tree<TreeNodeType>) {
-  const bottomNodes: TreeNode<TreeNodeType>[] = [];
-
-  tree.traverse((node) => {
-    if (node.children.length === 0) {
-      bottomNodes.push(node);
-    }
-  });
-
-  const treesBranches: TreeNodeType[][] = [];
-
-  for (let i = 0; i < bottomNodes.length; i++) {
-    const bottomNode = bottomNodes[i];
-    treesBranches.push([]);
-    bottomNode.traverseToRoot((child) => {
-      treesBranches[i].push(child.value);
-    });
-  }
-
-  return `<div>
-	${treesBranches
-    .map((nodeArr) => {
-      return nodeArr
-        .map((node) => {
-          return node.id;
-        })
-        .join("=> ");
-    })
-    .join("<hr/>")}
-	
-	</div>`;
-}
-
 export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
   if (tree.getDepth() === 0 || !tree.root) {
     return '<div class="imports"><p>Morph didn`t found any references.</p></div>';
@@ -170,9 +137,8 @@ export function getUpSideDownTreeViewHtml(tree: Tree<TreeNodeType>): string {
     margin-left: 8px;
   }
   </style>
- 
-		${getBranchesHtml(tree)}
+
 		${renderPastaNodes(tree)}
-     <ul class="tree">${renderNode(tree.root, 0)}</ul>
+
   `;
 }

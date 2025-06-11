@@ -3,7 +3,7 @@ import { TreeNodeType } from "../../graphPanel/types/types";
 
 function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
   const startPoint = new TreeNode<TreeNodeType>({
-    id: "dummyRoot",
+    id: "From root to file.",
     variable: null,
     file: undefined as never,
   });
@@ -24,8 +24,6 @@ function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
 
     if (!treeChild) {
       treeChild = treeNode.addChild(node.value);
-    } else {
-      console.log("found", node.value.id);
     }
 
     //if one of the node has the same id, it should have common parent
@@ -40,8 +38,6 @@ function mergeSimilarIdsInGraph(graph: GraphTree<TreeNodeType>) {
   newTree.setRoot(newGraph.roots[0].value);
   if (!newTree.root) throw new Error("TS guard");
   checkNode(newTree.root, newGraph.roots[0]);
-
-  console.log("newTree", newTree, newGraph);
 
   return newTree;
 }
@@ -120,7 +116,5 @@ export function renderPastaNodes(tree: Tree<TreeNodeType>) {
     return renderNode(graph.root, 0);
   }
 
-  return `<hr/><h1>treesBranches:</h1><ul class="tree">${renderTree(
-    tree2
-  )}</ul><hr/>`;
+  return `<hr/><ul class="tree">${renderTree(tree2)}</ul><hr/>`;
 }
