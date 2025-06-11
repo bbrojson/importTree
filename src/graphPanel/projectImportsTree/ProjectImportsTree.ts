@@ -6,9 +6,10 @@ import { Tree, TreeNode } from "../tree/Tree";
 import { retrieveSourceFileReferences } from "./retrieveSourceFileReferences";
 
 export class ProjectImportsTree {
+  private static instance: ProjectImportsTree;
   private project: Project;
 
-  constructor() {
+  private constructor() {
     const tsConfigPath = getTsconfigPath();
 
     if (!tsConfigPath) {
@@ -18,6 +19,13 @@ export class ProjectImportsTree {
     this.project = new Project({
       tsConfigFilePath: tsConfigPath,
     });
+  }
+
+  public static getInstance(): ProjectImportsTree {
+    if (!ProjectImportsTree.instance) {
+      ProjectImportsTree.instance = new ProjectImportsTree();
+    }
+    return ProjectImportsTree.instance;
   }
 
   public buildTree(document: vscode.TextDocument) {

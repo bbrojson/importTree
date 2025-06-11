@@ -24,7 +24,7 @@ export class ImportTreePanel {
     context: vscode.ExtensionContext,
     webview: vscode.Webview
   ) {
-    const projectTree = new ProjectImportsTree();
+    const projectTree = ProjectImportsTree.getInstance();
 
     const currentFile = vscode.window.activeTextEditor?.document;
     if (!currentFile) {
